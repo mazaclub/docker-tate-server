@@ -1,5 +1,5 @@
-FROM		privregistry.mazaclub/devtools/drone-builder
-MAINTAINER Rob Nelson <guruvan@maza.club>
+FROM		phusion/baseimage	
+MAINTAINER	Rob Nelson <guruvan@maza.club>
 
 EXPOSE		50001 50002 8000
 VOLUME		["/home/maza","/var/tate-server"]
