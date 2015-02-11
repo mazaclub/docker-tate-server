@@ -12,10 +12,11 @@ RUN		apt-get update \
 		    git libleveldb1 libleveldb-dev \
 		  && echo "bitcoin hard nofile 65536" >> /etc/security/limits.conf \
      		  && echo "bitcoin soft nofile 65536" >> /etc/security/limits.conf \
-		  && cd /app \
+		  && cd / \
+		  && git clone https://github.com/mazaclub/tate-server /tate-server \
 		  && cd /tate-server \
 		  && python setup.py install \
-		  && mv /tate-server/* /app \
+                  && mv /tate-server/* /app \
 		  && chmod +x /etc/service/tate-server/run \
 		  && groupadd --gid 2211 maza \
 		  && adduser --gid 2211 --disabled-password --gecos mazacoin --uid 2211 maza \
