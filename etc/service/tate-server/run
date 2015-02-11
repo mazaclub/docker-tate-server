@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+APP=tate-server
+USER=${USER:-maza}
+echo "Starting ${APP}"
+cd /app
+
+if [ -d /home/${USER} ] ; then
+   chown maza.maza /home/${USER}
+fi
+chmod +x /app/start.sh
+chown -R ${USER}.${USER} /app
+touch /var/log/tate.log
+chown ${USER}.${USER} /var/log/tate.log
+chown -R ${USER}.${USER} /var/tate-server
+chown ${USER}.${USER} /etc/tate.conf
+exec su ${USER} -c /app/start.sh

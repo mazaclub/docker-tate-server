@@ -1,0 +1,40 @@
+image: phusion/basimage
+git:
+  path: github.com/mazaclub/docker-tate-server
+env:
+  - WORKDIR=$(pwd)
+  - GIT_TAG=$(git rev-parse --short HEAD)
+script:
+  - shellcheck -s bash -e SC2086 app/start.sh 
+  - shellcheck -s bash etc/service/tate-server/run 
+  - shellcheck -s bash start_tateserver.sh
+  - sudo apt-get update 
+  - sudo apt-get install -y python-dev python2.7 python-pip libleveldb1 libleveldb-dev git 
+  - cd tate-server 
+  - cd src
+  - python -m unittest discover
+  - cd ${WORKDIR}/tate-server
+  - sudo python setup.py install 
+  - echo "Script complete"
+  - cd ${WORKDIR}
+services:
+publish:
+  docker:
+    docker_host: $$dockerHost
+    docker_version: 1.3.3
+    registry_login_url: $$registryUrl
+    registry_login: true
+    username: $$registryUser
+    password: $$registryPass
+    email: $$registryEmail
+    image_name: $$imageName
+    tags: [$GIT_TAG,latest]
+    keep_builds: false
+notify:
+  irc:
+    server: chat.freenode.net
+    nick: mazaclub-buildbot
+    channel: '#mazaclub-dev'
+    on_started: true
+    on_success: true
+    on_failure: true
