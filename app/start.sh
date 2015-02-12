@@ -5,7 +5,7 @@
 # Because we use linked containers we can use the 
 # standard ports 
 ### Tate-server doesn't really support testnet
-. /etc/container_environment.sh
+. /app/tateserver.env
 USER=${USER:-maza}
 TATE_HOSTNAME=${TATE_HOSTNAME:-${HOSTNAME}}
 TATE_PORT=${TATE_PORT:-50001}
