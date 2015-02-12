@@ -8,7 +8,7 @@ ENTRYPOINT	["/sbin/my_init"]
 ADD		. /	
 RUN		apt-get update \
 		  && apt-get install -y \
-		    python-dev python2.7 python-pip \
+		    apg python-dev python2.7 python-pip \
 		    git libleveldb1 libleveldb-dev \
 		  && echo "bitcoin hard nofile 65536" >> /etc/security/limits.conf \
      		  && echo "bitcoin soft nofile 65536" >> /etc/security/limits.conf \

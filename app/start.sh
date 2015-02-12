@@ -5,16 +5,17 @@
 # Because we use linked containers we can use the 
 # standard ports 
 ### Tate-server doesn't really support testnet
+. /etc/container_environment.sh
 USER=${USER:-maza}
-TATE_HOSTNAME=${TATE_HOSTNAME:-localhost}
+TATE_HOSTNAME=${TATE_HOSTNAME:-${HOSTNAME}}
 TATE_PORT=${TATE_PORT:-50001}
 TATE_SSLPORT=${TATE_SSL_PORT:-50002}
-MAZACOIND=${MAZACOIND:-localhost}
+MAZACOIND=${MAZACOIND:-mazacoind}
 MAZADIR=${MAZADIR:-/home/${USER}/.mazacoin}
 RPCPORT=${RPCPORT:-12832}
-RPCUSER=${RPCUSER:-$(grep rpcuser ${MAZADIR}/mazacoin.conf |awk -F= '{print $2}')}
-RPCPASSWORD=${RPCPASSWORD:-$(grep rpcpassword ${MAZADIR}/mazacoin.conf |awk -F= '{print $2}')}
-TXINDEX=$(grep "txindex=" ${MAZADIR}/mazacoin.conf |awk -F= '{print $2}')
+RPCUSER=${RPCUSER:-$(grep rpcuser "${MAZADIR}"/mazacoin.conf |awk -F= '{print $2}')}
+RPCPASSWORD=${RPCPASSWORD:-$(grep rpcpassword "${MAZADIR}"/mazacoin.conf |awk -F= '{print $2}')}
+TXINDEX=$(grep "txindex=" "${MAZADIR}"/mazacoin.conf |awk -F= '{print $2}')
 
 
 TATE_PASSWORD=$(egrep '^password =' /etc/tate.conf|awk -F= '{print $2}')
